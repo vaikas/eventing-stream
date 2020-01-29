@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package knative;
+
+import "google/protobuf/timestamp.proto";
+
+// To create the gen files:
+// protoc -I proto/ proto/stream.proto --go_out=plugins=grpc:knative
+
+// Streaming Service for Knative
+service Stream {
+  rpc Stream (stream CloudEvent) returns (stream CloudEvent) {}
+}
+
+message CloudEvent {
+	string version = 1;
+	string type = 2;
+	string source = 3;
+	string subject = 4;
+	string id = 5;
+	google.protobuf.Timestamp time = 6;
+	string schema = 7;
+	string content_type = 8;
+	string data_media_type = 9;
+	map<string, string> extensions = 10;
+	bytes data = 11;
+}
